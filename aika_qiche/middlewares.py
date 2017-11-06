@@ -19,8 +19,8 @@ class ProxyMiddleware(object):
 	# proxyUser = "HJ6L850B9KJ69Y4D"
 	# proxyPass = "6B572FD15BBDC0E9"
 
-	proxyUser = "HJ6L850B9KJ69Y4D"
-	proxyPass = "6B572FD15BBDC0E9"
+	proxyUser = "H245O5ME0WV8J1RD"
+	proxyPass = "10A78834CAAD6660"
 
 	# for Python3
 	proxyAuth = "Basic " + base64.urlsafe_b64encode(bytes((proxyUser + ":" + proxyPass), "ascii")).decode("utf8")
