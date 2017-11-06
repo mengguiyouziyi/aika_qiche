@@ -31,7 +31,7 @@ class MysqlPipeline(object):
 	def process_item(self, item, spider):
 		print(str(item['comp_url']) + ' ' + str(item['comp_name']))
 		if isinstance(item, AikaQicheItem):
-			if len(self.item_list) == 10:
+			if len(self.item_list) == 100:
 				sql = """insert into che_aika_copy1 (cat, comp_name, comp_url, phone, addr, intro, short, jibie) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"""
 				self.cursor.executemany(sql, self.item_list)
 				self.conn.commit()
