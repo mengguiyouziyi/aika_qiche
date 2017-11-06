@@ -4,6 +4,7 @@ import re
 from urllib.parse import urljoin
 from scrapy.selector import Selector
 from random import choice
+from aika_qiche.cookpack.cook import co_li
 from aika_qiche.items import AikaQicheItem
 
 
@@ -24,11 +25,10 @@ class TouzishijianSpider(scrapy.Spider):
 			'postman-token': "80cfe883-c0d9-1cd0-39a6-47410b7a679c"
 		}
 	}
-	# cookies = ['_fwck_dealer=05698dcfab4d0a3d05cffa0533bf38ba; _appuv_dealer=694a8660657863eeae27cbab42b7070a; BIGipServerpool-c26-xcar-dealerweb1-80=1204358922.20480.0000; ad__city=475; _Xdwnewuv=1; uv_firstv_refers=http%3A//dealer.xcar.com.cn/; _PVXuv=59fc1c5aa9119; _fwck_www=1c6576ba7f6f7cef10003c5235601bf0; _appuv_www=5a4924c5f3678bc5d84ddb85950e6e69; _Xdwuv=59f97576be53e; _fwck_tools=beff19be34a55210362a18a4564288e1; _appuv_tools=c2eb9719173cfe9717cd95acfce8456a; _locationInfo_=%7Burl%3A%22h%22%2Ccity_id%3A%22475%22%2Cprovince_id%3A%221%22%2C%20city_name%3A%22%25E5%258C%2597%25E4%25BA%25AC%22%7D; _Xdwstime=1509695363; Hm_lvt_53eb54d089f7b5dd4ae2927686b183e0=1509694555; Hm_lpvt_53eb54d089f7b5dd4ae2927686b183e0=1509695363',
 	cookies = [
 		'_Xdwuv=599c041b985b1; _PVXuv=599c041b0596f; Hm_lvt_53eb54d089f7b5dd4ae2927686b183e0=1509704641; _fwck_dealer=6ea5ed99d5c45bd8555072121dbb0f4b; _appuv_dealer=6dec38978e23b3e445a967c75e4b14ad; BIGipServerpool-c26-xcar-dealerweb1-80=1237913354.20480.0000; ad__city=475; _Xdwnewuv=1; _Xdwstime=1509704670; uv_firstv_refers=; _fwck_tools=b1a57b455c47d18271f691e9ffbd9785; _appuv_tools=adf526b44036f26458329ac304c8b7e7; _locationInfo_=%7Burl%3A%22h%22%2Ccity_id%3A%22475%22%2Cprovince_id%3A%221%22%2C%20city_name%3A%22%25E5%258C%2597%25E4%25BA%25AC%22%7D; _fwck_www=82c1b742edf4927d83f70119645dd26b; _appuv_www=2f5ced45baa341178b3f66ebbb24ef1c; Hm_lpvt_53eb54d089f7b5dd4ae2927686b183e0=1509704671',
 		'_Xdwuv=599c041b985b1; _PVXuv=599c041b0596f; Hm_lvt_53eb54d089f7b5dd4ae2927686b183e0=1509704641,1509704835; _fwck_dealer=6ea5ed99d5c45bd8555072121dbb0f4b; _appuv_dealer=6dec38978e23b3e445a967c75e4b14ad; ad__city=475; _Xdwnewuv=1; _Xdwstime=1509704839; uv_firstv_refers=http%3A//dealer.xcar.com.cn/d1000/13.htm%3Ftype%3D2; _fwck_tools=b1a57b455c47d18271f691e9ffbd9785; _appuv_tools=adf526b44036f26458329ac304c8b7e7; _locationInfo_=%7Burl%3A%22h%22%2Ccity_id%3A%22475%22%2Cprovince_id%3A%221%22%2C%20city_name%3A%22%25E5%258C%2597%25E4%25BA%25AC%22%7D; _fwck_www=82c1b742edf4927d83f70119645dd26b; _appuv_www=2f5ced45baa341178b3f66ebbb24ef1c; BIGipServerpool-c26-xcar-dealerweb1-80=1237913354.20480.0000; Hm_lpvt_53eb54d089f7b5dd4ae2927686b183e0=1509704841',
-		'_Xdwuv=599c041b985b1; _PVXuv=599c041b0596f; Hm_lvt_53eb54d089f7b5dd4ae2927686b183e0=1509704641,1509704835; _fwck_dealer=6ea5ed99d5c45bd8555072121dbb0f4b; _appuv_dealer=6dec38978e23b3e445a967c75e4b14ad; ad__city=475; _Xdwnewuv=1; _Xdwstime=1509704855; uv_firstv_refers=http%3A//dealer.xcar.com.cn/d1000/13.htm%3Ftype%3D2; _fwck_tools=b1a57b455c47d18271f691e9ffbd9785; _appuv_tools=adf526b44036f26458329ac304c8b7e7; _locationInfo_=%7Burl%3A%22h%22%2Ccity_id%3A%22475%22%2Cprovince_id%3A%221%22%2C%20city_name%3A%22%25E5%258C%2597%25E4%25BA%25AC%22%7D; _fwck_www=82c1b742edf4927d83f70119645dd26b; _appuv_www=2f5ced45baa341178b3f66ebbb24ef1c; BIGipServerpool-c26-xcar-dealerweb1-80=1237913354.20480.0000; Hm_lpvt_53eb54d089f7b5dd4ae2927686b183e0=1509704856'
+		'_Xdwuv=599c041b985b1; _PVXuv=599c041b0596f; Hm_lvt_53eb54d089f7b5dd4ae2927686b183e0=1509704641,1509704835; _fwck_dealer=6ea5ed99d5c45bd8555072121dbb0f4b; _appuv_dealer=6dec38978e23b3e445a967c75e4b14ad; ad__city=475; _Xdwnewuv=1; _Xdwstime=1509704855; uv_firstv_refers=http%3A//dealer.xcar.com.cn/d1000/13.htm%3Ftype%3D2; _fwck_tools=b1a57b455c47d18271f691e9ffbd9785; _appuv_tools=adf526b44036f26458329ac304c8b7e7; _locationInfo_=%7Burl%3A%22h%22%2Ccity_id%3A%22475%22%2Cprovince_id%3A%221%22%2C%20city_name%3A%22%25E5%258C%2597%25E4%25BA%25AC%22%7D; _fwck_www=82c1b742edf4927d83f70119645dd26b; _appuv_www=2f5ced45baa341178b3f66ebbb24ef1c; BIGipServerpool-c26-xcar-dealerweb1-80=1237913354.20480.0000; Hm_lpvt_53eb54d089f7b5dd4ae2927686b183e0=1509704856',
 		'_fwck_dealer=c48a6e1875096ee34b3a6dc19a993e87; _appuv_dealer=90a929ca3952c8393c4b3d90c3caaf94; BIGipServerpool-c26-xcar-dealerweb1-80=1204358922.20480.0000; ad__city=475; _Xdwnewuv=1; _Xdwstime=1509705844; uv_firstv_refers=http%3A//dealer.xcar.com.cn/; _PVXuv=59fc48746d47f; _fwck_www=f7f94fc926631aa0b6d26d0e05e39af1; _appuv_www=032628515153846c0c21eeb9e3667f67; _Xdwuv=5097058441432; _fwck_tools=59d30062ccacb15f927f521e657d0384; _appuv_tools=622539ac1e1bbc7e7d09ae2f9aa1413c; _locationInfo_=%7Burl%3A%22h%22%2Ccity_id%3A%22475%22%2Cprovince_id%3A%221%22%2C%20city_name%3A%22%25E5%258C%2597%25E4%25BA%25AC%22%7D; Hm_lvt_53eb54d089f7b5dd4ae2927686b183e0=1509705845; Hm_lpvt_53eb54d089f7b5dd4ae2927686b183e0=1509705845',
 		'_fwck_dealer=c48a6e1875096ee34b3a6dc19a993e87; _appuv_dealer=90a929ca3952c8393c4b3d90c3caaf94; BIGipServerpool-c26-xcar-dealerweb1-80=1204358922.20480.0000; ad__city=475; _Xdwnewuv=1; uv_firstv_refers=http%3A//dealer.xcar.com.cn/; _PVXuv=59fc48746d47f; _fwck_www=f7f94fc926631aa0b6d26d0e05e39af1; _appuv_www=032628515153846c0c21eeb9e3667f67; _Xdwuv=5097058441432; _fwck_tools=59d30062ccacb15f927f521e657d0384; _appuv_tools=622539ac1e1bbc7e7d09ae2f9aa1413c; _locationInfo_=%7Burl%3A%22h%22%2Ccity_id%3A%22475%22%2Cprovince_id%3A%221%22%2C%20city_name%3A%22%25E5%258C%2597%25E4%25BA%25AC%22%7D; _Xdwstime=1509705982; Hm_lvt_53eb54d089f7b5dd4ae2927686b183e0=1509705845; Hm_lpvt_53eb54d089f7b5dd4ae2927686b183e0=1509705982 ',
 		'_Xdwuv=5097060430749; _fwck_dealer=6d0e3a1e715ab2963e7b4067e25031a6; _appuv_dealer=3030c8ed9e42dfb60b3bf4e0310c8ad6; BIGipServerpool-c26-xcar-dealerweb1-80=1204358922.20480.0000; _Xdwnewuv=1; _Xdwstime=1509706043; uv_firstv_refers=; _PVXuv=59fc493cbc639; _fwck_www=dc28c70ad3d8c82d168c978477ecb7bc; _appuv_www=ab5c2ecb6efcd68989ad27a4c320be8f; _fwck_tools=ba7b927b5d62431e43e849713c270cf4; _appuv_tools=827b0e924ab034feef26865959dd62ce; _locationInfo_=%7Burl%3A%22h%22%2Ccity_id%3A%22475%22%2Cprovince_id%3A%221%22%2C%20city_name%3A%22%25E5%258C%2597%25E4%25BA%25AC%22%7D; Hm_lvt_53eb54d089f7b5dd4ae2927686b183e0=1509706045; Hm_lpvt_53eb54d089f7b5dd4ae2927686b183e0=1509706045',
@@ -54,7 +54,8 @@ class TouzishijianSpider(scrapy.Spider):
 		'_Xdwuv=599c041b985b1; _PVXuv=599c041b0596f; Hm_lvt_53eb54d089f7b5dd4ae2927686b183e0=1509704641,1509704835; _fwck_dealer=88b12f311fbcfc2b412b6201a9c5c08a; _appuv_dealer=10f0fb9d9e1621e6167d5a36d6b2df2b; BIGipServerpool-c26-xcar-dealerweb1-80=1221136138.20480.0000',
 		'_Xdwuv=599c041b985b1; _PVXuv=599c041b0596f; Hm_lvt_53eb54d089f7b5dd4ae2927686b183e0=1509704641,1509704835,1509709514; _fwck_dealer=99a7b9b6446304bd8612304f23cc7eb1; _appuv_dealer=459b23ff0e811cc5f3b4f775803f29d0; BIGipServerpool-c26-xcar-dealerweb1-80=1237913354.20480.0000',
 	]
-	cookie_dict = dict((line.split('=') for line in choice(cookies).strip().split(";")))
+	# cookie_dict = dict((line.split('=') for line in choice(cookies).strip().split(";")))
+	cookie_dict = choice(co_li)
 
 	# def start_requests(self):
 	# 	start_url = "http://dealer.xcar.com.cn/113220/about.htm"
@@ -81,28 +82,30 @@ class TouzishijianSpider(scrapy.Spider):
 		select = Selector(text=response.text)
 		a_tags = select.xpath('//div[@class="ulcon"]/a')
 		for a in a_tags:
-			item = AikaQicheItem()
+
 			cat = a.xpath('./text()').extract_first()
 			cat_url = a.xpath('./@href').extract_first()
 			id = re.search(r'(\d+)\.htm', cat_url).group(1)
-			item['cat'] = cat
+
 			# print('type_1', self.burl.format(id))
-			yield scrapy.Request(self.burl.format(id), callback=self.parse_list_a, meta={'item': item})
+			yield scrapy.Request(self.burl.format(id), callback=self.parse_list_a, meta={'cat': cat})
 			# print('type_2', self.burl.format(id) + '?type=2')
-			yield scrapy.Request(self.burl.format(id) + '?type=2', callback=self.parse_list_b, meta={'item': item})
+			yield scrapy.Request(self.burl.format(id) + '?type=2', callback=self.parse_list_b, meta={'cat': cat})
 
 	def parse_list_a(self, response):
-		item = response.meta.get('item')
+		cat = response.meta.get('cat')
 		select = Selector(text=response.text)
 		dl_tags = select.xpath('//div[@id="dlists_4s_isfee"]/ul[@class="dlists_list"]/li/dl')
 		# print(len(dl_tags))
 		for dl in dl_tags:
+			item = AikaQicheItem()
 			dt_tag = dl.xpath('./dt/a')
 			comp_name = dt_tag.xpath('./text()').extract_first()
 			comp_url = dt_tag.xpath('./@href').extract_first()
 			comp_url = urljoin(response.url, comp_url) + 'about.htm'
 			phone = dl.xpath('./dd[@class="phone"]/em/b/text()').extract_first()
 			addr = dl.xpath('./dd[@class="site"]/span[2]/text()').extract_first()
+			item['cat'] = cat
 			item['comp_name'] = comp_name
 			item['comp_url'] = comp_url
 			item['phone'] = phone
@@ -114,20 +117,22 @@ class TouzishijianSpider(scrapy.Spider):
 			return
 		p_next = urljoin(response.url, p_next)
 		# print('type_1_next', p_next)
-		yield scrapy.Request(p_next, callback=self.parse_list_a, meta={'item': item})
+		yield scrapy.Request(p_next, callback=self.parse_list_a, meta={'cat': cat})
 
 	def parse_list_b(self, response):
-		item = response.meta.get('item')
+		cat = response.meta.get('cat')
 		select = Selector(text=response.text)
 		dl_tags = select.xpath('//div[@id="dlists_zh"]/ul[@class="dlists_list"]/li/dl')
 		# print(len(dl_tags))
 		for dl in dl_tags:
+			item = AikaQicheItem()
 			dt_tag = dl.xpath('./dt/a')
 			comp_name = dt_tag.xpath('./text()').extract_first()
 			comp_url = dt_tag.xpath('./@href').extract_first()
 			comp_url = urljoin(response.url, comp_url) + 'about.htm'
 			phone = dl.xpath('./dd[@class="phone"]/em/b/text()').extract_first()
 			addr = dl.xpath('./dd[@class="site"]/span[2]/text()').extract_first()
+			item['cat'] = cat
 			item['comp_name'] = comp_name
 			item['comp_url'] = comp_url
 			item['phone'] = phone
@@ -139,7 +144,7 @@ class TouzishijianSpider(scrapy.Spider):
 			return
 		p_next = urljoin(response.url, p_next)
 		# print('type_2_next', p_next)
-		yield scrapy.Request(p_next, callback=self.parse_list_b, meta={'item': item})
+		yield scrapy.Request(p_next, callback=self.parse_list_b, meta={'cat': cat})
 
 	def parse_detail(self, response):
 		item = response.meta.get('item')
